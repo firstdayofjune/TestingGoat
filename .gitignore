@@ -1,5 +1,4 @@
 db.sqlite3
-__pycache__ 
-superlists/__pycache__
-lists/__pycache__
+*__pycache__
+
 *.pyc 
