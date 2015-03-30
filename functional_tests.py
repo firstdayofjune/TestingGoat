@@ -31,13 +31,16 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys('Buy peacock feathers')
 		inputbox.send_keys(Keys.ENTER)
 
+		# Since there still is an input-field to enter items, Julius enters 'Use peacock feathers to make a fly'
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Use peacock feathers to make a fly')
+		inputbox.send_keys(Keys.ENTER)		
+
 		# Now the recently added to-do item is shown in the to-do list table
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: Buy peacock feathers' for row in rows),
-			'New To-Do item did not appear in table'
-			)
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+		self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
 
 		# There now still is a input-box, where new to-do items can be added
 		self.fail('Finish the test!')
